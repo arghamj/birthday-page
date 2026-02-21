@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 20th Shraddha!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root { --pink: #ffafbd; --cream: #ffc3a0; --text: #7d5a5a; --gold: #D4AF37; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Quicksand', sans-serif; overflow: hidden; background: linear-gradient(135deg, var(--pink) 0%, var(--cream) 100%); color: var(--text); }
+        .heart-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .level { display: none; width: 100%; height: 100%; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: absolute; z-index: 10; padding: 20px; box-sizing: border-box; }
+        .active { display: flex; animation: fadeIn 1s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .card, .cute-card { background: rgba(255, 255, 255, 0.9); padding: 35px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 175, 189, 0.5); max-width: 650px; border: 2px solid white; }
+        .btn { background: #ff758c; border: none; color: white; padding: 15px 35px; margin: 10px; cursor: pointer; font-size: 1.1rem; border-radius: 50px; font-weight: bold; transition: 0.3s; box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4); }
+        .big-20 { font-size: 8rem; font-family: 'Dancing Script', cursive; color: #ff758c; margin: 0; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .knife { font-size: 4rem; cursor: pointer; transition: 0.5s; display: inline-block; margin: 20px; }
+        .photo-circle { width: 140px; height: 140px; border-radius: 50%; border: 4px solid white; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1); margin: 5px; }
+        .photo-circle img { width: 100%; height: 100%; object-fit: cover; }
+        #countdown { font-size: 2.5rem; color: var(--text); font-weight: bold; margin: 20px 0; letter-spacing: 2px; }
+
+        /* Entry Overlay Style */
+        #entry-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--pink), var(--cream));
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; z-index: 9999; transition: 0.8s;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="entry-overlay">
+        <h1 style="font-family: 'Dancing Script'; font-size: 3.5rem; color: white; text-shadow: 2px 2px 10px rgba(0,0,0,0.1);">For Shraddha... ✨</h1>
+        <button class="btn" onclick="unlockAudio()" style="background: white; color: #ff758c;">Tap to Enter the Celebration 🌸</button>
+    </div>
+
+    <div id="music-box" style="display:none;"></div>
+    <div class="heart-bg" id="heart-container"></div>
+
+    <div id="level1" class="level active">
+        <div class="cute-card">
+            <h1 style="font-family: 'Dancing Script'; font-size: 3.5rem; color: #ff758c;">Hey Shraddha! ✨</h1>
+            <div id="countdown-wrapper">
+                <p>The magic begins in...</p>
+                <div id="countdown">00:00:00</div>
+            </div>
+            <div id="question-area" style="display: none;">
+                <p style="font-size: 1.3rem;">Today is your Birthday, right?</p>
+                <button class="btn" onclick="startFlow(1)">hmm 🌸</button>
+                <button class="btn" onclick="startFlow(2)">ha ha ha... 🎀</button>
+            </div>
+            <div id="reply-box" style="margin-top:25px; font-weight: bold; color: #ff758c;"></div>
+        </div>
+    </div>
+
+    <div id="level2" class="level">
+        <h1 class="big-20">20</h1>
+        <h2 style="font-family: 'Dancing Script'; font-size: 3.5rem; color: white;">Happy 20th Birthday Shraddha!</h2>
+        <div style="cursor: pointer; margin-top: 20px;" onclick="blowCandle()">
+            <div id="flame" style="width: 25px; height: 35px; background: #ffeb3b; border-radius: 50% 50% 20% 20%; margin: 0 auto; box-shadow: 0 0 20px #ffeb3b;"></div>
+            <div style="width: 18px; height: 60px; background: white; margin: 0 auto; border-radius: 5px;"></div>
+        </div>
+        <p style="color: white; margin-top: 20px; font-weight: bold;">Tap the flame to make a wish...</p>
+    </div>
+
+    <div id="level3" class="level">
+      <div class="card">
+        <h2 style="font-family:'Dancing Script';font-size:2.5rem;color:#ff758c;">Cake Time! 🍰</h2>
+        <div style="font-size:5rem;">🎂</div>
+        <div class="knife" onclick="cut()">🔪</div>
+        <p>Tap the knife to cut the cake</p>
+      </div>
+    </div>
+
+    <div id="level4" class="level">
+        <div class="cute-card" style="max-width: 800px;">
+            <h1 style="font-family: 'Dancing Script'; font-size: 3.5rem; color: #ff758c; margin-bottom: 20px;">Happy Birthday Frutii!</h1>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 25px;">
+                <div class="photo-circle"><img src="sh1.jpeg"></div>
+                <div class="photo-circle"><img src="sh3.jpeg"></div>
+                <div class="photo-circle"><img src="sh4.jpeg"></div>
+                <div class="photo-circle"><img src="sn2.jpeg"></div>
+            </div>
+            <p style="font-size: 1.1rem; line-height: 1.6;">
+                I'm so grateful for You dear. Wishing you a very very very very happiest birthday! my dear. May your 20s be amazing!<br>
+                Happy 20th Birthday, Shraddha! ✨ You are a beautiful soul, blessed by God and destined for greatness. May your journey to Microsoft be as smooth as your heart is kind. Stay bountiful, stay blessed!
+            </p>
+            <button class="btn" onclick="next(5)">Next... ✨</button>
+        </div>
+    </div>
+
+    <div id="level5" class="level">
+        <div class="cute-card">
+            <h1 style="font-family: 'Dancing Script'; font-size: 4rem; color: #ff758c;">Thank You! ❤️</h1>
+            <p style="font-size: 1.2rem;">For being the person you are. And enjoy your day with all the joy and happiness it deserves! and make the way like that you want it to be!</p>
+            <p style="font-family: 'Dancing Script'; font-size: 2rem; color: #ff758c;">- AI_16_2C</p>
+        </div>
+    </div>
+
+    <script>
+        const targetDate = new Date("Feb 22, 2026 00:00:00").getTime();
+        const songs = { 1: "v_fVOfR7Hog", 2: "5O3U6fO69_A", 3: "fH_S7J2C_9o", 4: "L0MK7qz13bU", 5: "K4DyBUG242c" };
+
+        function playSong(lvl) {
+            const id = songs[lvl];
+            document.getElementById('music-box').innerHTML = 
+                `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&mute=0&loop=1&playlist=${id}" allow="autoplay"></iframe>`;
+        }
+
+        // UNLOCK AUDIO LOGIC
+        function unlockAudio() {
+            document.getElementById('entry-overlay').style.opacity = '0';
+            setTimeout(() => { document.getElementById('entry-overlay').style.display = 'none'; }, 800);
+            playSong(1); // Start music immediately upon entry
+        }
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerHTML = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown-wrapper").style.display = "none";
+                document.getElementById("question-area").style.display = "block";
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            }
+        }, 1000);
+
+        function startFlow(choice) {
+            // Already playing song 1, but this ensures it continues or resets if needed
+            const text = choice === 1 ? "Ohh great.. let's see.. there is something for you." : "Moves forward to see what's waiting for you...";
+            document.getElementById('reply-box').innerHTML = `<p>${text}</p><button class="btn" onclick="next(2)">tap to celebrate your birthday....</button>`;
+        }
+
+        function next(lvl) {
+            document.querySelectorAll('.level').forEach(l => l.classList.remove('active'));
+            document.getElementById('level' + lvl).classList.add('active');
+            playSong(lvl);
+            if(lvl === 2) confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        }
+
+        function blowCandle() {
+            document.getElementById('flame').style.display = 'none';
+            confetti({ particleCount: 50, spread: 50, colors: ['#ff758c'] });
+            setTimeout(() => next(3), 1500);
+        }
+
+        function cut(){
+            document.querySelector('.knife').style.transform = "rotate(-45deg) translate(-20px,20px)";
+            confetti({ particleCount: 200, spread: 150, origin: { y: 0.7 } });
+            setTimeout(() => next(4), 4000);
+        }
+
+        function createHeart() {
+            const container = document.getElementById('heart-container');
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️'; heart.style.position = 'absolute';
+            heart.style.left = Math.random() * 100 + 'vw'; heart.style.top = '100vh';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px'; heart.style.opacity = Math.random();
+            container.appendChild(heart);
+            const anim = heart.animate([{ transform: 'translateY(0)', opacity: 1 }, { transform: `translateY(-110vh)`, opacity: 0 }], { duration: 6000 });
+            anim.onfinish = () => heart.remove();
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
